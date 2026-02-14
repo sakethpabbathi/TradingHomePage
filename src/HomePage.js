@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import ScrollToTop from "./ScrollToTop";
 import { useNavigate } from "react-router-dom";
 
+// import prawn1 from "../assets/prawn1.jpg";
+
+
 const TradingHome = () => {
   return (
     <div style={styles.app}>
@@ -83,12 +86,29 @@ const Header = () => {
 const Hero = () => {
   const [index, setIndex] = useState(0);
 
-  const images = [
-    "https://images.unsplash.com/photo-1642790106117-e829e14a795f",
-    "https://images.unsplash.com/photo-1633158829875-e5316a358c6f",
-    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-    "https://images.unsplash.com/photo-1621768216002-5ac171876625",
-  ];
+  // const images = [
+  //   "https://images.unsplash.com/photo-1642790106117-e829e14a795f",
+  //   "https://images.unsplash.com/photo-1633158829875-e5316a358c6f",
+  //   "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+  //   "https://images.unsplash.com/photo-1621768216002-5ac171876625",
+  // ];
+
+// const images = [
+//    // Fresh fish on ice
+//   "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62", // Prawns / shrimp
+//   "https://media.istockphoto.com/id/157678695/photo/pallet-with-fresh-fish-at-a-wholesale-market.jpg?s=612x612&w=0&k=20&c=eKOFXnoQmXKs4D9O-SldgLoYZ6ABCtwyBWYtBgK2Ubo= ",
+//   " https://content.jdmagicbox.com/comp/def_content/seafood-retailers/seafood-retailers-2-seafood-retailers-3-khswi.jpg ",
+//   " https://media.istockphoto.com/id/520490716/photo/seafood-on-ice.jpg?s=612x612&w=0&k=20&c=snyxGY26viNQ6BWqW-ez4U7tAO65Z_tmAFPMobiZ9Q4= ",
+//   "https://img.freepik.com/premium-photo/fishes-water-nature-background-hd-8k-wallpaper-stock-photographic-image_890746-32810.jpg ",
+// ];
+
+const images = [
+  "/fishone.jpg",
+  "/import.jpg",
+  "/fishesfour.png"
+];
+
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -127,13 +147,13 @@ const Hero = () => {
 
 
 const marketImages = [
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4FLYDeaGahg_iF3jfYNR-6DSSywH0z-pCjg&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvUK6L_gwVVVNE5oDzmdX9tOk3woLu1MGbyA&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdJVOlyILOZ-LKyIJ42EzgEj877jiWuG_obA&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSATgfXpq4UPa9jrAHsF53f8Gj8DG_PQUHWFg&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99L1whrEUpIWTNOmmcFs9KtGBbkyFcpioaw&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcgN8UPofcq0Y4xQmOtgK9l2xb0pVNMj7Efw&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyOU0LrjWXLL_27byziGnIxqohpVhsIrfLOA&s",
+  "https://5.imimg.com/data5/GF/CU/MY-2050439/white-prawn-shrimp-500x500.jpg",
+  "https://zubairrabbani.com/wp-content/uploads/2024/05/Seafood-Captions-For-Instagram-1024x1024.webp",
+  "https://static01.nyt.com/images/2018/01/16/science/00TB-FOODWEB-promo/00TB-FOODWEB2-superJumbo.jpg",
+  "https://www.tradeimex.in/blogs/uploads/images/202507/img_w860_687e23f818b0e6-94738744.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTarLmFVTdMHCT4XjXYzUOQfLv9fosWTu59iQ&s",
+  "https://5.imimg.com/data5/LH/HV/WC/SELLER-9549927/seafood-500x500.jpg",
+  "https://www.foodandwine.com/thmb/ClPnka2WSnl5PtrMYOjlmXsXw1k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/escovitch-fish-FT-RECIPE0920-8a733638c2ba4b72b48737782fa616c2.jpg",
 ];
 
 
@@ -211,18 +231,18 @@ const Services = () => {
         <div className="services-content">
 
           <div className="service-box fade-in">
-            <h3>Live Trading</h3>
-            <p>Real-time trading platform</p>
+            <h3>Fresh Fish Export</h3>
+            <p>Supplying premium quality fresh and frozen fish worldwide.</p>
           </div>
 
           <div className="service-box slide-up">
-            <h3>Portfolio Management</h3>
-            <p>Manage investments smartly</p>
+            <h3>Prawn Processing & Export</h3>
+            <p>Hygienic cleaning, grading, freezing, and national shipping.</p>
           </div>
 
           <div className="service-box fade-in">
-            <h3>Market Analysis</h3>
-            <p>Daily expert insights</p>
+            <h3>Seafood Cold Storage</h3>
+            <p>Temperature-controlled storage for long-lasting freshness</p>
           </div>
 
           <div className="service-box slide-up">
@@ -252,10 +272,10 @@ const Service = ({ title, text }) => (
 const Footer = () => {
   return (
     <footer id="contact" style={styles.footer}>
-      <h3>UPIN TRADEING CORPORATION</h3>
+      <h3>UPIN TRADING CORPORATION</h3>
 
       <p>📍 Hyderabad, India</p>
-      <p>📧 saketh@trade.com</p>
+      <p>📧 upintrad@123.com</p>
       <p>📞 +91 93477 19244</p>
 
       <p style={{ marginTop: "10px" }}>
