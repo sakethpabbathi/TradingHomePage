@@ -7,13 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 // import prawn1 from "../assets/prawn1.jpg";
 
-
 const TradingHome = () => {
   return (
     <div style={styles.app}>
 
  <ScrollToTop /> 
-        
       <Header />
       <Hero />
       <Markets />
@@ -71,9 +69,9 @@ const Header = () => {
             }}
           >
             <a onClick={() => setMenuOpen(false)} href="#home" style={styles.navLink}>Home</a>
-            <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Markets</a>
+            <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>About us</a>
             <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Services</a>
-            <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Contact</a>
+             <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Contact</a>
           </nav>
         )}
 
@@ -85,22 +83,7 @@ const Header = () => {
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
-
-  // const images = [
-  //   "https://images.unsplash.com/photo-1642790106117-e829e14a795f",
-  //   "https://images.unsplash.com/photo-1633158829875-e5316a358c6f",
-  //   "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-  //   "https://images.unsplash.com/photo-1621768216002-5ac171876625",
-  // ];
-
-// const images = [
-//    // Fresh fish on ice
-//   "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62", // Prawns / shrimp
-//   "https://media.istockphoto.com/id/157678695/photo/pallet-with-fresh-fish-at-a-wholesale-market.jpg?s=612x612&w=0&k=20&c=eKOFXnoQmXKs4D9O-SldgLoYZ6ABCtwyBWYtBgK2Ubo= ",
-//   " https://content.jdmagicbox.com/comp/def_content/seafood-retailers/seafood-retailers-2-seafood-retailers-3-khswi.jpg ",
-//   " https://media.istockphoto.com/id/520490716/photo/seafood-on-ice.jpg?s=612x612&w=0&k=20&c=snyxGY26viNQ6BWqW-ez4U7tAO65Z_tmAFPMobiZ9Q4= ",
-//   "https://img.freepik.com/premium-photo/fishes-water-nature-background-hd-8k-wallpaper-stock-photographic-image_890746-32810.jpg ",
-// ];
+ 
 
 const images = [
   "/fishone.jpg",
