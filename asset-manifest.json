@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TradingHomePage/static/css/main.17779db5.css",
+    "main.js": "/TradingHomePage/static/js/main.faf88d3c.js",
+    "index.html": "/TradingHomePage/index.html",
+    "main.17779db5.css.map": "/TradingHomePage/static/css/main.17779db5.css.map",
+    "main.faf88d3c.js.map": "/TradingHomePage/static/js/main.faf88d3c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.17779db5.css",
+    "static/js/main.faf88d3c.js"
+  ]
+}
