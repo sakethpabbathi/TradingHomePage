@@ -121,13 +121,13 @@ const images = [
       ))}
 
       <div style={styles.heroContent}>
-        <h1>Trade Smarter. Grow Faster.</h1>
-        <p>Stocks • Crypto • Forex • Commodities</p>
+  <h1>Fresh Seafood. Trusted Global Supply.</h1>
+  <p>Premium Fish • Quality Prawns • Worldwide Export</p>
 
-        <button style={styles.heroBtn}>
-          Start Trading
-        </button>
-      </div>
+  <button style={styles.heroBtn}>
+    Explore Our Products
+  </button>
+</div>
     </section>
   );
 };
