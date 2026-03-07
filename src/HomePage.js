@@ -42,7 +42,8 @@ const Header = () => {
 
         {/* LOGO */}
         <img
-          src="tradeinglogo.jpeg"
+          // src="tradeinglogo.jpeg"
+          src={process.env.PUBLIC_URL + "/tradeinglogo.jpeg"}
           alt="Logo"
           style={styles.logoImg}
           onClick={() => (window.location.href = "#home")}
@@ -83,12 +84,18 @@ const Hero = () => {
   const [index, setIndex] = useState(0);
  
 
-const images = [
-  "/fishone.jpg",
-  "/import.jpg",
-  "/fishesfour.png"
-];
+// const images = [
+//   "/fishone.jpg",
+//   "/import.jpg",
+//   "/fishesfour.png"
+// ];
 
+
+const images = [
+  process.env.PUBLIC_URL + "/fishone.jpg",
+  process.env.PUBLIC_URL + "/import.jpg",
+  process.env.PUBLIC_URL + "/fishesfour.png"
+];
 
 
   useEffect(() => {
