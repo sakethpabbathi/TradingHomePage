@@ -8,22 +8,32 @@ import { useNavigate } from "react-router-dom";
 // import prawn1 from "../assets/prawn1.jpg";
 
 const TradingHome = () => {
+  const [activeSlide, setActiveSlide] = useState(0); 
   return (
     <div style={styles.app}>
 
  <ScrollToTop /> 
-      <Header />
+      {/* <Header /> */}
+
+      <Header setActiveSlide={setActiveSlide} />
       <Hero />
       <SubHeader /> 
       {/* <Markets /> */}
-      <ImportExportSection />
+      {/* <ImportExportSection /> */}
+      <ImportExportSection 
+  activeSlide={activeSlide} 
+  setActiveSlide={setActiveSlide} 
+/>
       {/* <Services /> */}
+      <AboutSection />
+      <ContactSection />
       <Footer />
     </div>
   );
 };
 
-const Header = () => {
+// const Header = () => {
+  const Header = ({ setActiveSlide }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -87,27 +97,53 @@ const Header = () => {
   <a onClick={() => setMenuOpen(false)} href="#home" style={styles.navLink}>
     Home
   </a>
-
-  <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>
-    About us
-  </a>
-
-  <a onClick={() => setMenuOpen(false)} href="#services" style={styles.navLink}>
-    Services
-  </a>
-
-  <a onClick={() => setMenuOpen(false)} href="#contact" style={styles.navLink}>
-    Contact
-  </a>
-
-  {/* Optional */}
+{/* 
   <a onClick={() => setMenuOpen(false)} href="#imports" style={styles.navLink}>
     Import
   </a>
 
   <a onClick={() => setMenuOpen(false)} href="#exports" style={styles.navLink}>
     Export
+  </a> */}
+
+<a
+  onClick={() => {
+    setMenuOpen(false);
+    setActiveSlide(1);   // 👈 go to imports slide
+  }}
+  href="#imports-exports"
+  style={styles.navLink}
+>
+  Import
+</a>
+
+<a
+  onClick={() => {
+    setMenuOpen(false);
+    setActiveSlide(6);   // 👈 exports slide
+  }}
+  href="#imports-exports"
+  style={styles.navLink}
+>
+  Export
+</a>
+
+
+  {/* <a onClick={() => setMenuOpen(false)} href="#services" style={styles.navLink}>
+    Services
+  </a> */}
+
+  <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>
+    About us
   </a>
+
+
+  <a onClick={() => setMenuOpen(false)} href="#contact" style={styles.navLink}>
+    Contact
+  </a>
+
+  {/* Optional */}
+  
 </nav>
 
         )}
@@ -116,6 +152,9 @@ const Header = () => {
     </header>
   );
 };
+
+
+
 const MenuItem = ({ text, onClick }) => {
   return (
     <div 
@@ -310,153 +349,325 @@ const Services = () => {
 
 
 const ImportExportSection = () => {
-  const [showImportDetails, setShowImportDetails] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
-  const scrollToTop = () => {
-  const element = document.getElementById("home");
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
-};
+  const [path, setPath] = useState(["Imports & Exports"]);
+
   return (
+    <section id="imports-exports" style={styles.importExportSection}>
 
-    
+      {/* 🔥 BREADCRUMB PATH */}
+      <h2 style={styles.sectionTitle}>
+        {path.map((item, index) => (
+          <span
+            key={index}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              const newPath = path.slice(0, index + 1);
+              setPath(newPath);
 
-<section id="imports-exports" style={styles.importExportSection}>
-  <h2 style={styles.sectionTitle}>Imports & Exports</h2>
-
-  <div style={styles.sliderWrapper}>
-
-    {/* ---------------- SLIDE 1 ---------------- */}
-    <div
-      style={{
-        ...styles.slide,
-        transform: `translateX(${activeSlide === 0 ? "0%" : "-100%"})`,
-      }}
-    >
-      <div style={styles.importExportCard}>
-        <div style={styles.imageWrapper}>
-          <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/020/173/239/small/global-business-logistics-transport-import-export-and-international-trade-concept-logistics-distribution-of-containers-cargo-freight-ship-train-truck-and-plane-transportation-industry-background-photo.jpg"
-            style={styles.importExportImg}
-            onClick={() => setActiveSlide(1)}
-          />
-        </div>
-        <div style={styles.cardContent}>
-          <h3>Imports</h3>
-          <p>High-quality seafood and feed sourced globally.</p>
-        </div>
-      </div>
-
-      <div style={styles.importExportCard}>
-        <div style={styles.imageWrapper}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
-            style={styles.importExportImg}
-          />
-        </div>
-        <div style={styles.cardContent}>
-          <h3>Exports</h3>
-          <p>Trusted export services delivering worldwide freshness.</p>
-        </div>
-      </div>
-    </div>
-
-
-    {/* ---------------- SLIDE 2 ---------------- */}
-    <div
-      style={{
-        ...styles.slide,
-        transform: `translateX(${
-          activeSlide === 1 ? "0%" : activeSlide < 1 ? "100%" : "-100%"
-        })`,
-      }}
-    >
-      <div style={styles.importExportCard}>
-        <div style={styles.imageWrapper}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
-            style={styles.importExportImg}
-            onClick={() => setActiveSlide(2)}
-          />
-        </div>
-        <div style={styles.cardContent}>
-          <h3>Feed</h3>
-          <p>High-quality prawn & fish feed products.</p>
-        </div>
-      </div>
-
-      <div style={styles.importExportCard}>
-        <div style={styles.imageWrapper}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
-            style={styles.importExportImg}
-            onClick={() => setActiveSlide(2)}
-          />
-        </div>
-        <div style={styles.cardContent}>
-          <h3>HCP</h3>
-          <p>Hygienic processing and certification services.</p>
-
-          {/* <button
-            style={styles.cardBtn}
-            onClick={() => setActiveSlide(0)}
+              // navigation logic
+              if (newPath.length === 1) setActiveSlide(0);
+              if (newPath.length === 2) setActiveSlide(1);
+            }}
           >
-            ← Back
-          </button> */}
-          
+            {item}
+            {index < path.length - 1 && " / "}
+          </span>
+        ))}
+      </h2>
+
+      <div style={styles.sliderWrapper}>
+
+        {/* ---------------- SLIDE 1 ---------------- */}
+        <div
+          style={{
+            ...styles.slide,
+            transform: `translateX(${activeSlide === 0 ? "0%" : "-100%"})`,
+            zIndex: activeSlide === 0 ? 2 : 1,
+          }}
+        >
+          {/* IMPORT */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/020/173/239/small/global-business-logistics-transport-import-export-and-international-trade-concept-logistics-distribution-of-containers-cargo-freight-ship-train-truck-and-plane-transportation-industry-background-photo.jpg"
+                style={styles.importExportImg}
+                onClick={() => {
+                  setActiveSlide(1);
+                  setPath(["Imports"]);
+                }}
+              />
+            </div>
+            <div style={styles.cardContent}>
+              <h3>Imports</h3>
+              <p>High-quality seafood and feed sourced globally.</p>
+            </div>
+          </div>
+
+          {/* EXPORT */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+  style={styles.importExportImg}
+  onClick={() => {
+    setActiveSlide(6);   // 👈 new slide
+    setPath(["Exports"]);
+  }}
+/>
+            </div>
+            <div style={styles.cardContent}>
+              <h3>Exports</h3>
+              <p>Trusted export services delivering worldwide freshness.</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
+        {/* ---------------- SLIDE 2 ---------------- */}
+        <div
+          style={{
+            ...styles.slide,
+            transform: `translateX(${
+              activeSlide === 1 ? "0%" : activeSlide < 1 ? "100%" : "-100%"
+            })`,
+            zIndex: activeSlide === 1 ? 2 : 1,
+          }}
+        >
+          {/* FEED */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+                style={styles.importExportImg}
+                onClick={() => {
+                  setActiveSlide(2);
+                  setPath(["Imports", "Feed"]);
+                }}
+              />
+            </div>
+            <div style={styles.cardContent}>
+              <h3>Feed</h3>
+              <p>High-quality prawn & fish feed products.</p>
+            </div>
+          </div>
 
+          {/* HCP */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+                style={styles.importExportImg}
+                onClick={() => {
+                  setActiveSlide(3);
+                  setPath(["Imports", "HCP"]);
+                }}
+              />
+            </div>
+            <div style={styles.cardContent}>
+              <h3>HCP</h3>
+              <p>Hygienic processing and certification services.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ---------------- SLIDE 3 (FEED DETAILS) ---------------- */}
+        <div
+          style={{
+            ...styles.slide,
+            transform: `translateX(${activeSlide === 2 ? "0%" : "100%"})`,
+            zIndex: activeSlide === 2 ? 2 : 1,
+          }}
+        >
+          {/* PRAWN FEED */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+                style={styles.importExportImg}
+onClick={() => {
+  setActiveSlide(4); // 👈 move to new slide
+  setPath(["Imports", "Feed", "Prawn Feed"]);
+}}
+              />
+            </div>
+            <div style={styles.cardContent}>
+              <h3>Prawn Feed</h3>
+              <p>Premium quality feed for healthy prawn growth.</p>
+            </div>
+          </div>
+
+          {/* FISH FEED */}
+          <div style={styles.importExportCard}>
+            <div style={styles.imageWrapper}>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+                style={styles.importExportImg}
+                onClick={() => {
+  setActiveSlide(5); // 👈 new slide
+  setPath(["Imports", "Feed", "Fish Feed"]);
+}}
+              />
+            </div>
+            <div style={styles.cardContent}>
+              <h3>Fish Feed</h3>
+              <p>Nutritious feed solutions for all types of fish.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* ---------------- SLIDE 4 (HCP DETAILS) ---------------- */}
+        <div
+          style={{
+            ...styles.slide,
+            transform: `translateX(${activeSlide === 3 ? "0%" : "100%"})`,
+            zIndex: activeSlide === 3 ? 2 : 1,
+          }}
+        >
+          {["OXY-BESTOT", "	GUTPRO", "ENGRO", "UNI-LIGHT"].map((item, i) => (
+            <div key={i} style={styles.importExportCard}>
+              <div style={styles.imageWrapper}>
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+                  style={styles.importExportImg}
+                />
+              </div>
+              <div style={styles.cardContent}>
+                <h3>{item}</h3>
+                <p>High-quality aquaculture solution.</p>
+              </div>
+            </div>
+          ))}
+        </div>
+{/* ---------------- SLIDE 5 (PRAWN FEED PRODUCTS) ---------------- */}
 <div
   style={{
     ...styles.slide,
-    transform: `translateX(${activeSlide === 2 ? "0%" : "100%"})`,
-    zIndex: activeSlide === 2 ? 2 : 1,
+    transform: `translateX(${activeSlide === 4 ? "0%" : "100%"})`,
+    zIndex: activeSlide === 4 ? 2 : 1,
+  }}
+>
+  {["UNIVANA-P", "UNIVANA", "TOP ONE", "LA ONE"].map((item, i) => (
+    <div key={i} style={styles.importExportCard}>
+      <div style={styles.imageWrapper}>
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+          style={styles.importExportImg}
+        />
+      </div>
+
+      <div style={styles.cardContent}>
+        <h3>{item}</h3>
+        <p>High-quality aquaculture product.</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+{/* ---------------- SLIDE 6 (FISH FEED PRODUCTS) ---------------- */}
+<div
+  style={{
+    ...styles.slide,
+    transform: `translateX(${activeSlide === 5 ? "0%" : "100%"})`,
+    zIndex: activeSlide === 5 ? 2 : 1,
+  }}
+>
+  {/* Marian Fish Feed */}
+  <div style={styles.importExportCard}>
+    <div style={styles.imageWrapper}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+        style={styles.importExportImg}
+      />
+    </div>
+    <div style={styles.cardContent}>
+      <h3>Marian Fish Feed</h3>
+      <p>Premium nutrition for high-growth fish farming.</p>
+    </div>
+  </div>
+
+  {/* Fresh Water Fish Feed */}
+  <div style={styles.importExportCard}>
+    <div style={styles.imageWrapper}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+        style={styles.importExportImg}
+      />
+    </div>
+    <div style={styles.cardContent}>
+      <h3>Fresh Water Fish Feed</h3>
+      <p>Balanced feed for freshwater aquaculture systems.</p>
+    </div>
+  </div>
+</div>
+
+{/* ---------------- SLIDE 7 (EXPORTS) ---------------- */}
+<div
+  style={{
+    ...styles.slide,
+    transform: `translateX(${activeSlide === 6 ? "0%" : "100%"})`,
+    zIndex: activeSlide === 6 ? 2 : 1,
   }}
 >
 
-  {/* PRAWN FEED */}
+  {/* SHRIMP */}
   <div style={styles.importExportCard}>
     <div style={styles.imageWrapper}>
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
-        alt="Prawn Feed"
         style={styles.importExportImg}
+        onClick={() => {
+          setPath(["Exports", "Shrimp"]);
+        }}
       />
     </div>
-
     <div style={styles.cardContent}>
-      <h3>Prawn Feed</h3>
-      <p>Premium quality feed for healthy prawn growth.</p>
+      <h3>Shrimp</h3>
+      <p>Various types of shrimps available (details coming soon).</p>
     </div>
   </div>
 
-  {/* FISH FEED */}
+  {/* MINERALS */}
   <div style={styles.importExportCard}>
     <div style={styles.imageWrapper}>
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
-        
         style={styles.importExportImg}
+        onClick={() => {
+          setPath(["Exports", "Minerals"]);
+        }}
       />
     </div>
-
     <div style={styles.cardContent}>
-      <h3>Fish Feed</h3>
-      <p>Nutritious feed solutions for all types of fish.</p>
+      <h3>Minerals</h3>
+      <p>Quartz, Iron and other essential minerals.</p>
     </div>
-    
+  </div>
+
+  {/* CHEMICALS */}
+  <div style={styles.importExportCard}>
+    <div style={styles.imageWrapper}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+        style={styles.importExportImg}
+        onClick={() => {
+          setPath(["Exports", "Chemicals"]);
+        }}
+      />
+    </div>
+    <div style={styles.cardContent}>
+      <h3>Chemicals</h3>
+      <p>CaCl₂, MgCl₂ and more (R&D in progress).</p>
+    </div>
   </div>
 
 </div>
-  </div>
-</section>
 
+      </div>
+    </section>
   );
 };
+
+
 
 const Service = ({ title, text }) => (
   <div style={styles.serviceCard}>
@@ -464,6 +675,69 @@ const Service = ({ title, text }) => (
     <p>{text}</p>
   </div>
 );
+
+const AboutSection = () => {
+  return (
+    <section id="about" style={styles.aboutSection}>
+      <h2 style={styles.sectionTitle}>About Us</h2>
+
+      <p style={styles.aboutText}>
+        UPIN Trading Corporation is a trusted name in imports and exports,
+        specializing in high-quality seafood, aquaculture feed, and industrial
+        solutions. We are committed to delivering premium products and reliable
+        services to customers across the globe.
+      </p>
+
+      <p style={styles.aboutText}>
+        With a focus on quality, sustainability, and customer satisfaction,
+        we ensure excellence in every stage — from sourcing to delivery.
+      </p>
+    </section>
+  );
+};
+
+const ContactSection = () => {
+  return (
+    <section id="contact" style={styles.contactSection}>
+      <h2 style={styles.sectionTitle}>Contact Us</h2>
+
+      <form style={styles.contactForm}>
+        
+        <input
+          type="text"
+          placeholder="Your Name"
+          style={styles.input}
+          required
+        />
+
+        <input
+          type="tel"
+          placeholder="Mobile Number"
+          style={styles.input}
+          required
+        />
+
+        <input
+          type="email"
+          placeholder="Email Address"
+          style={styles.input}
+        />
+
+        <textarea
+          placeholder="Your Message"
+          rows="4"
+          style={styles.textarea}
+        ></textarea>
+
+        <button type="submit" style={styles.submitBtn}>
+          Send Message
+        </button>
+
+      </form>
+    </section>
+  );
+};
+
 
 const Footer = () => {
   return (
@@ -488,6 +762,58 @@ const Footer = () => {
 
 const styles = {
 
+  contactSection: {
+  padding: "60px 20px",
+  background: "#ffffff",
+  textAlign: "center",
+},
+
+contactForm: {
+  maxWidth: "500px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+},
+
+input: {
+  padding: "12px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  fontSize: "14px",
+},
+
+textarea: {
+  padding: "12px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  fontSize: "14px",
+},
+
+submitBtn: {
+  padding: "12px",
+  background: "#00b4d8",
+  color: "#fff",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontWeight: "bold",
+},
+
+  
+aboutSection: {
+  padding: "60px 20px",
+  background: "#f4f8fb",
+  textAlign: "center",
+},
+
+aboutText: {
+  maxWidth: "800px",
+  margin: "10px auto",
+  fontSize: "16px",
+  color: "#333",
+  lineHeight: "1.6",
+},
 sliderTrack: {
   display: "flex",
   width: "200%", // 2 slides
@@ -530,6 +856,7 @@ sectionTitle: {
   fontSize: "36px",
   marginBottom: "50px",
   color: "#0d1b2a",
+  textAlign: "center",   // ✅ correct way
 },
 
 importExportContainer: {
