@@ -14,8 +14,10 @@ const TradingHome = () => {
  <ScrollToTop /> 
       <Header />
       <Hero />
-      <Markets />
-      <Services />
+      <SubHeader /> 
+      {/* <Markets /> */}
+      <ImportExportSection />
+      {/* <Services /> */}
       <Footer />
     </div>
   );
@@ -61,21 +63,74 @@ const Header = () => {
 
         {/* NAV */}
         {(!isMobile || menuOpen) && (
-          <nav
-            style={{
-              ...styles.nav,
-              ...(isMobile ? styles.navOpen : {}),
-            }}
-          >
-            <a onClick={() => setMenuOpen(false)} href="#home" style={styles.navLink}>Home</a>
-            <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>About us</a>
-            <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Services</a>
-             <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Contact</a>
-          </nav>
+          // <nav
+          //   style={{
+          //     ...styles.nav,
+          //     ...(isMobile ? styles.navOpen : {}),
+          //   }}
+          // >
+          //   <a onClick={() => setMenuOpen(false)} href="#home" style={styles.navLink}>Home</a>
+          //    <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Import</a>
+          //     <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Export</a>
+          //   <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>About us</a>
+          //   <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Services</a>
+          //    <a onClick={() => setMenuOpen(false)} href="#" style={styles.navLink}>Contact</a>
+             
+          // </nav>
+
+<nav
+  style={{
+    ...styles.nav,
+    ...(isMobile ? styles.navOpen : {}),
+  }}
+>
+  <a onClick={() => setMenuOpen(false)} href="#home" style={styles.navLink}>
+    Home
+  </a>
+
+  <a onClick={() => setMenuOpen(false)} href="#about" style={styles.navLink}>
+    About us
+  </a>
+
+  <a onClick={() => setMenuOpen(false)} href="#services" style={styles.navLink}>
+    Services
+  </a>
+
+  <a onClick={() => setMenuOpen(false)} href="#contact" style={styles.navLink}>
+    Contact
+  </a>
+
+  {/* Optional */}
+  <a onClick={() => setMenuOpen(false)} href="#imports" style={styles.navLink}>
+    Import
+  </a>
+
+  <a onClick={() => setMenuOpen(false)} href="#exports" style={styles.navLink}>
+    Export
+  </a>
+</nav>
+
         )}
 
       </div>
     </header>
+  );
+};
+const MenuItem = ({ text, onClick }) => {
+  return (
+    <div 
+      style={styles.menuItem}
+      onClick={onClick}
+      onMouseEnter={(e) => {
+        e.currentTarget.querySelector(".underline").style.width = "100%";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.querySelector(".underline").style.width = "0%";
+      }}
+    >
+      {text}
+      <div className="underline" style={styles.underline}></div>
+    </div>
   );
 };
 
@@ -83,20 +138,12 @@ const Header = () => {
 const Hero = () => {
   const [index, setIndex] = useState(0);
  
-
-// const images = [
-//   "/fishone.jpg",
-//   "/import.jpg",
-//   "/fishesfour.png"
-// ];
-
-
-const images = [
-  process.env.PUBLIC_URL + "/fishone.jpg",
-  process.env.PUBLIC_URL + "/import.jpg",
-  process.env.PUBLIC_URL + "/fishesfour.png"
-];
-
+const navigate = useNavigate();
+  const images = [
+    process.env.PUBLIC_URL + "/fishone.jpg",
+    process.env.PUBLIC_URL + "/import.jpg",
+    process.env.PUBLIC_URL + "/fishesfour.png"
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -120,18 +167,33 @@ const images = [
         />
       ))}
 
-      <div style={styles.heroContent}>
-  <h1>Fresh Seafood. Trusted Global Supply.</h1>
-  <p>Premium Fish • Quality Prawns • Worldwide Export</p>
 
-  <button style={styles.heroBtn}>
-    Explore Our Products
-  </button>
-</div>
+      {/* POPUP */}
+  
     </section>
   );
 };
 
+const SubHeader = () => {
+  return (
+    <section style={styles.subHeader}>
+      <div style={styles.subHeaderContent}>
+        <h1>Fresh Seafood. Trusted Global Supply.</h1>
+        <p>Premium Fish • Quality Prawns • Worldwide Export</p>
+
+        <button 
+          style={styles.heroBtn}
+          onClick={() => {
+            const section = document.getElementById("imports-exports");
+            section.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Explore
+        </button>
+      </div>
+    </section>
+  );
+};
 
 
 const marketImages = [
@@ -143,7 +205,6 @@ const marketImages = [
   "https://5.imimg.com/data5/LH/HV/WC/SELLER-9549927/seafood-500x500.jpg",
   "https://www.foodandwine.com/thmb/ClPnka2WSnl5PtrMYOjlmXsXw1k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/escovitch-fish-FT-RECIPE0920-8a733638c2ba4b72b48737782fa616c2.jpg",
 ];
-
 
 function Markets() {
   const sliderRef = React.useRef(null);
@@ -209,6 +270,7 @@ function Markets() {
     </>
   );
 }
+
 const Services = () => {
   return (
     <section className="services-section" id="services">
@@ -247,6 +309,154 @@ const Services = () => {
 
 
 
+const ImportExportSection = () => {
+  const [showImportDetails, setShowImportDetails] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const scrollToTop = () => {
+  const element = document.getElementById("home");
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
+  return (
+
+    
+
+<section id="imports-exports" style={styles.importExportSection}>
+  <h2 style={styles.sectionTitle}>Imports & Exports</h2>
+
+  <div style={styles.sliderWrapper}>
+
+    {/* ---------------- SLIDE 1 ---------------- */}
+    <div
+      style={{
+        ...styles.slide,
+        transform: `translateX(${activeSlide === 0 ? "0%" : "-100%"})`,
+      }}
+    >
+      <div style={styles.importExportCard}>
+        <div style={styles.imageWrapper}>
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/020/173/239/small/global-business-logistics-transport-import-export-and-international-trade-concept-logistics-distribution-of-containers-cargo-freight-ship-train-truck-and-plane-transportation-industry-background-photo.jpg"
+            style={styles.importExportImg}
+            onClick={() => setActiveSlide(1)}
+          />
+        </div>
+        <div style={styles.cardContent}>
+          <h3>Imports</h3>
+          <p>High-quality seafood and feed sourced globally.</p>
+        </div>
+      </div>
+
+      <div style={styles.importExportCard}>
+        <div style={styles.imageWrapper}>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+            style={styles.importExportImg}
+          />
+        </div>
+        <div style={styles.cardContent}>
+          <h3>Exports</h3>
+          <p>Trusted export services delivering worldwide freshness.</p>
+        </div>
+      </div>
+    </div>
+
+
+    {/* ---------------- SLIDE 2 ---------------- */}
+    <div
+      style={{
+        ...styles.slide,
+        transform: `translateX(${
+          activeSlide === 1 ? "0%" : activeSlide < 1 ? "100%" : "-100%"
+        })`,
+      }}
+    >
+      <div style={styles.importExportCard}>
+        <div style={styles.imageWrapper}>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+            style={styles.importExportImg}
+            onClick={() => setActiveSlide(2)}
+          />
+        </div>
+        <div style={styles.cardContent}>
+          <h3>Feed</h3>
+          <p>High-quality prawn & fish feed products.</p>
+        </div>
+      </div>
+
+      <div style={styles.importExportCard}>
+        <div style={styles.imageWrapper}>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+            style={styles.importExportImg}
+            onClick={() => setActiveSlide(2)}
+          />
+        </div>
+        <div style={styles.cardContent}>
+          <h3>HCP</h3>
+          <p>Hygienic processing and certification services.</p>
+
+          {/* <button
+            style={styles.cardBtn}
+            onClick={() => setActiveSlide(0)}
+          >
+            ← Back
+          </button> */}
+          
+        </div>
+      </div>
+    </div>
+
+
+<div
+  style={{
+    ...styles.slide,
+    transform: `translateX(${activeSlide === 2 ? "0%" : "100%"})`,
+    zIndex: activeSlide === 2 ? 2 : 1,
+  }}
+>
+
+  {/* PRAWN FEED */}
+  <div style={styles.importExportCard}>
+    <div style={styles.imageWrapper}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+        alt="Prawn Feed"
+        style={styles.importExportImg}
+      />
+    </div>
+
+    <div style={styles.cardContent}>
+      <h3>Prawn Feed</h3>
+      <p>Premium quality feed for healthy prawn growth.</p>
+    </div>
+  </div>
+
+  {/* FISH FEED */}
+  <div style={styles.importExportCard}>
+    <div style={styles.imageWrapper}>
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT75hzrt-cwrOqmIMGXWOP3aNi4RQSfHgesVA&s"
+        
+        style={styles.importExportImg}
+      />
+    </div>
+
+    <div style={styles.cardContent}>
+      <h3>Fish Feed</h3>
+      <p>Nutritious feed solutions for all types of fish.</p>
+    </div>
+    
+  </div>
+
+</div>
+  </div>
+</section>
+
+  );
+};
 
 const Service = ({ title, text }) => (
   <div style={styles.serviceCard}>
@@ -255,34 +465,218 @@ const Service = ({ title, text }) => (
   </div>
 );
 
-
-
 const Footer = () => {
   return (
     <footer id="contact" style={styles.footer}>
-      <h3>UPIN TRADING CORPORATION</h3>
+      
+      {/* TOP ROW (ALL IN ONE LINE) */}
+      <div style={styles.footerTop}>
+        <span>UPIN TRADING CORPORATION</span>
+        <span>📍 Hyderabad, India</span>
+        <span>📧 upintrad@123.com</span>
+        <span>📞 +91 93477 19244</span>
+      </div>
 
-      <p>📍 Hyderabad, India</p>
-      <p>📧 upintrad@123.com</p>
-      <p>📞 +91 93477 19244</p>
-
-      <p style={{ marginTop: "10px" }}>
+      {/* BOTTOM ROW */}
+      <p style={styles.footerBottom}>
         © 2026 UPIN Tradeing Corporation. All Rights Reserved.
       </p>
+
     </footer>
   );
 };
 
-
-
 const styles = {
+
+sliderTrack: {
+  display: "flex",
+  width: "200%", // 2 slides
+  transition: "0.6s ease-in-out",
+},
+sliderWrapper: {
+  position: "relative",
+  overflow: "hidden",
+  height: "350px",
+},
+// slide: {
+//   position: "absolute",
+//   width: "100%",
+//   display: "flex",
+//   justifyContent: "center",
+//   gap: "40px",
+//   transition: "0.6s ease",
+// },
+
+slide: {
+  position: "absolute",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  gap: "40px",
+  transition: "0.6s ease",
+  transition: "transform 0.6s ease, opacity 0.6s ease",
+  zIndex: 1, // 👈 ADD THIS
+},
+
+importExportContainer: {
+  display: "flex",
+  justifyContent: "center",
+  gap: "40px",
+  flexWrap: "wrap",
+  transition: "all 0.6s ease",
+  width: "100%",
+},
+sectionTitle: {
+  fontSize: "36px",
+  marginBottom: "50px",
+  color: "#0d1b2a",
+},
+
+importExportContainer: {
+  display: "flex",
+  justifyContent: "center",
+  gap: "40px",
+  flexWrap: "wrap",
+},
+
+importExportCard: {
+  width: "320px",
+  borderRadius: "15px",
+  overflow: "hidden",
+  background: "#fff",
+  boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+  transition: "0.4s",
+  cursor: "pointer",
+},
+
+imageWrapper: {
+  position: "relative",
+  height: "200px",
+  overflow: "hidden",
+},
+
+importExportImg: {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  transition: "0.5s",
+},
+
+overlay: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "rgba(0,0,0,0.3)",
+},
+
+cardContent: {
+  padding: "20px",
+},
+
+cardBtn: {
+  marginTop: "10px",
+  padding: "10px 20px",
+  border: "none",
+  background: "#00b4d8",
+  color: "#fff",
+  borderRadius: "5px",
+  cursor: "pointer",
+},
+  
+underline: {
+  height: "2px",
+  width: "0%",
+  background: "#00b4d8",
+  position: "absolute",
+  bottom: "0",
+  left: "0",
+  transition: "0.3s ease",
+},
+
+menuItem: {
+  padding: "10px 15px",
+  fontSize: "16px",
+  cursor: "pointer",
+  position: "relative",
+},
+
+  underline: {
+  height: "2px",
+  width: "0%",
+  background: "#00b4d8",
+  position: "absolute",
+  bottom: "0",
+  left: "0",
+  transition: "0.3s ease",
+},
+subDropdown: {
+  position: "absolute",
+  top: "0",
+  left: "100%",   // 👈 attach directly (no gap)
+  marginLeft: "0px", // remove gap
+  background: "#f1f1f1",
+  borderRadius: "8px",
+  padding: "10px",
+  minWidth: "140px",
+},
+  
+popup: {
+  position: "fixed",
+  top: "0",
+  left: "0",
+  width: "100%",
+  height: "100%",
+  background: "rgba(0,0,0,0.6)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 9999,
+},
+
+popupContent: {
+  background: "#fff",
+  padding: "30px",
+  borderRadius: "10px",
+  minWidth: "300px",
+  display: "flex",            // 🔥 makes items side by side
+  justifyContent: "space-around",
+  alignItems: "center",
+  gap: "40px",
+},
+
+
+menuItem: {
+  padding: "10px",
+  fontSize: "18px",
+  cursor: "pointer",
+  position: "relative", // ✅ required
+},
+dropdown: {
+  position: "absolute",
+  top: "40px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  background: "#f1f1f1",
+  borderRadius: "8px",
+  padding: "10px",
+  minWidth: "120px",
+},
+
+dropdownItem: {
+  padding: "8px",
+  cursor: "pointer",
+},
+dropdownItemWrapper: {
+  position: "relative",
+},
 
 nav: {
   display: "flex",
   alignItems: "center",
   gap: "20px",
 },
-
 
 hamburger: {
   fontSize: "32px",
@@ -297,8 +691,6 @@ logoImg: {
   maxWidth: "140px",
   objectFit: "contain",
 },
-
-
 
 navOpen: {
   position: "absolute",
@@ -338,7 +730,6 @@ width: "100%",
     zIndex: 100,
   },
 
-
 headerInner: {
   display: "flex",
   justifyContent: "space-between",
@@ -347,7 +738,6 @@ headerInner: {
   maxWidth: "1200px",
   margin: "0 auto",
 },
-
 
   logo: {
     margin: 0,
@@ -361,7 +751,6 @@ navLink: {
   fontSize: "16px",
 },
 
-
   loginBtn: {
     background: "#00b4d8",
     border: "none",
@@ -370,7 +759,16 @@ navLink: {
     borderRadius: "4px",
     cursor: "pointer",
   },
+subHeader: {
+  padding: "80px 20px",
+  background: "linear-gradient(180deg, #ffffff, #f4f8fb)",
+  textAlign: "center",
+},
 
+subHeaderContent: {
+  maxWidth: "800px",
+  margin: "0 auto",
+},
   hero: {
     height: "80vh",
     position: "relative",
@@ -384,16 +782,15 @@ navLink: {
     objectFit: "cover",
     transition: "1s",
   },
-
-  heroContent: {
-    position: "relative",
-    zIndex: 2,
-    color: "#fff",
-    textAlign: "center",
-    top: "40%",
-    transform: "translateY(-40%)",
-  },
-
+                                                                   
+heroContent: {
+  position: "absolute",
+  bottom: "100px",   // 👈 moves text to bottom
+  left: "50%",
+  transform: "translateX(-50%)",
+  textAlign: "center",
+  color: "#fff",
+},
   heroBtn: {
     background: "#00b4d8",
     border: "none",
@@ -444,12 +841,29 @@ navLink: {
     borderRadius: "10px",
   },
 
+  
   footer: {
-    background: "#0d1b2a",
-    color: "#fff",
-    padding: "30px",
-    textAlign: "center",
-  },
+  background: "#0d1b2a",
+  color: "#fff",
+  padding: "10px 20px",   // 🔥 reduced height
+  textAlign: "center",
+  fontSize: "14px",
+  marginTop: "16px",
+},
+
+footerTop: {
+  display: "flex",
+  justifyContent: "center",
+  gap: "25px",
+  flexWrap: "wrap", // responsive
+  alignItems: "center",
+},
+
+footerBottom: {
+  marginTop: "5px",
+  fontSize: "12px",
+  opacity: 0.8,
+},
 };
 
 export default TradingHome;

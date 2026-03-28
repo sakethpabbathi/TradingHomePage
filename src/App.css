@@ -3,7 +3,9 @@ body{
   background: rgb(252, 253, 254);
 
 }
-
+html {
+  scroll-behavior: smooth;
+}
 .markets-container {
   padding: 40px 30px;
   background: #ffff;
