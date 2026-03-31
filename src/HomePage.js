@@ -174,26 +174,81 @@ const MenuItem = ({ text, onClick }) => {
 };
 
 
+// const Hero = () => {
+//   const [index, setIndex] = useState(0);
+ 
+// const navigate = useNavigate();
+//   const images = [
+//     process.env.PUBLIC_URL + "/fishone.jpg",
+//     process.env.PUBLIC_URL + "/import.jpg",
+//     process.env.PUBLIC_URL + "/fishesfour.png"
+//   ];
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       setIndex((prev) => (prev + 1) % images.length);
+//     }, 3000);
+
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   return (
+//     <section id="home" style={styles.hero}>
+//       {images.map((img, i) => (
+//         <img
+//           key={i}
+//           src={img}
+//           alt="Trading"
+//           style={{
+//             ...styles.heroImg,
+//             opacity: i === index ? 1 : 0,
+//           }}
+//         />
+//       ))}
+
+
+//       {/* POPUP */}
+  
+//     </section>
+//   );
+// };
+
+
 const Hero = () => {
   const [index, setIndex] = useState(0);
- 
-const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   const images = [
     process.env.PUBLIC_URL + "/fishone.jpg",
     process.env.PUBLIC_URL + "/import.jpg",
     process.env.PUBLIC_URL + "/fishesfour.png"
   ];
 
+  // slider
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 3000);
-
     return () => clearInterval(timer);
   }, []);
 
+  // mobile detect
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <section id="home" style={styles.hero}>
+    <section
+      id="home"
+      style={{
+        ...styles.hero,
+        ...(isMobile ? styles.heroMobile : {}),
+      }}
+    >
       {images.map((img, i) => (
         <img
           key={i}
@@ -201,17 +256,15 @@ const navigate = useNavigate();
           alt="Trading"
           style={{
             ...styles.heroImg,
+            ...(isMobile ? styles.heroImgMobile : {}),
             opacity: i === index ? 1 : 0,
           }}
         />
       ))}
-
-
-      {/* POPUP */}
-  
     </section>
   );
 };
+
 
 const SubHeader = () => {
   return (
@@ -696,48 +749,90 @@ const AboutSection = () => {
   );
 };
 
+// const ContactSection = () => {
+//   return (
+//     <section id="contact" style={styles.contactSection}>
+//       <h2 style={styles.sectionTitle}>Contact Us</h2>
+
+//       <form style={styles.contactForm}>
+        
+//         <input
+//           type="text"
+//           placeholder="Your Name"
+//           style={styles.input}
+//           required
+//         />
+
+//         <input
+//           type="tel"
+//           placeholder="Mobile Number"
+//           style={styles.input}
+//           required
+//         />
+
+//         <input
+//           type="email"
+//           placeholder="Email Address"
+//           style={styles.input}
+//         />
+
+//         <textarea
+//           placeholder="Your Message"
+//           rows="4"
+//           style={styles.textarea}
+//         ></textarea>
+
+//         <button type="submit" style={styles.submitBtn}>
+//           Send Message
+//         </button>
+
+//       </form>
+//     </section>
+//   );
+// };
+
+
 const ContactSection = () => {
   return (
     <section id="contact" style={styles.contactSection}>
       <h2 style={styles.sectionTitle}>Contact Us</h2>
 
-      <form style={styles.contactForm}>
-        
-        <input
-          type="text"
-          placeholder="Your Name"
-          style={styles.input}
-          required
-        />
+      <form
+        style={styles.contactForm}
+        onSubmit={(e) => {
+          e.preventDefault();
 
-        <input
-          type="tel"
-          placeholder="Mobile Number"
-          style={styles.input}
-          required
-        />
+          const name = e.target[0].value;
+          const phone = e.target[1].value;
+          const email = e.target[2].value;
+          const message = e.target[3].value;
 
-        <input
-          type="email"
-          placeholder="Email Address"
-          style={styles.input}
-        />
+          const text = `Hello, I have a new enquiry:%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Email: ${email}%0A
+Message: ${message}`;
 
-        <textarea
-          placeholder="Your Message"
-          rows="4"
-          style={styles.textarea}
-        ></textarea>
+          const whatsappNumber = "919347719244";
+
+          window.open(
+            `https://wa.me/${whatsappNumber}?text=${text}`,
+            "_blank"
+          );
+        }}
+      >
+        <input type="text" placeholder="Your Name" style={styles.input} required />
+        <input type="tel" placeholder="Mobile Number" style={styles.input} required />
+        <input type="email" placeholder="Email Address" style={styles.input} />
+        <textarea placeholder="Your Message" rows="4" style={styles.textarea}></textarea>
 
         <button type="submit" style={styles.submitBtn}>
           Send Message
         </button>
-
       </form>
     </section>
   );
 };
-
 
 const Footer = () => {
   return (
@@ -802,7 +897,7 @@ submitBtn: {
 
   
 aboutSection: {
-  padding: "60px 20px",
+  padding: "15px 20px",
   background: "#f4f8fb",
   textAlign: "center",
 },
@@ -866,14 +961,29 @@ importExportContainer: {
   flexWrap: "wrap",
 },
 
+// importExportCard: {
+//   width: "320px",
+//   borderRadius: "15px",
+//   overflow: "hidden",
+//   background: "#fff",
+//   boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+//   transition: "0.4s",
+//   cursor: "pointer",
+  
+// },
+
 importExportCard: {
-  width: "320px",
+  width: "100%",          // 🔥 full width on small screens
+  maxWidth: "320px",      // 🔥 limit size on large screens
   borderRadius: "15px",
   overflow: "hidden",
   background: "#fff",
   boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
   transition: "0.4s",
   cursor: "pointer",
+  flex: "1 1 280px",  
+  height: "45vh",  
+    // 🔥 responsive grid behavior
 },
 
 imageWrapper: {
@@ -884,7 +994,7 @@ imageWrapper: {
 
 importExportImg: {
   width: "100%",
-  height: "100%",
+  height: "85%",
   objectFit: "cover",
   transition: "0.5s",
 },
@@ -899,7 +1009,9 @@ overlay: {
 },
 
 cardContent: {
-  padding: "20px",
+  padding: "0px",
+  textAlign: "center",
+  marginTop: "-20px",
 },
 
 cardBtn: {
@@ -1096,20 +1208,47 @@ subHeaderContent: {
   maxWidth: "800px",
   margin: "0 auto",
 },
-  hero: {
-    height: "80vh",
-    position: "relative",
-    overflow: "hidden",
-  },
 
-  heroImg: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transition: "1s",
-  },
-                                                                   
+  // hero: {
+  //   height: "80vh",
+  //   position: "relative",
+  //   overflow: "hidden",
+  // },
+
+  // heroImg: {
+  //   position: "absolute",
+  //   width: "100%",
+  //   height: "100%",
+  //   objectFit: "cover",
+  //   transition: "1s",
+  // },
+  
+  hero: {
+  height: "80vh",
+  position: "relative",
+  overflow: "hidden",
+},
+
+// 📱 MOBILE HEIGHT REDUCE
+heroMobile: {
+  height: "30vh",   // 👈 reduce height
+},
+
+heroImg: {
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  transition: "1s",
+},
+
+// 📱 MOBILE IMAGE FIX
+heroImgMobile: {
+  objectFit: "contain",   // 👈 no zoom
+  backgroundColor: "#000", // optional (for empty space)
+},
+  
+  
 heroContent: {
   position: "absolute",
   bottom: "100px",   // 👈 moves text to bottom
