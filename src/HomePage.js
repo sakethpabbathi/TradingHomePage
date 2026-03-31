@@ -792,6 +792,7 @@ const AboutSection = () => {
 // };
 
 
+
 const ContactSection = () => {
   return (
     <section id="contact" style={styles.contactSection}>
@@ -819,6 +820,8 @@ Message: ${message}`;
             `https://wa.me/${whatsappNumber}?text=${text}`,
             "_blank"
           );
+
+          e.target.reset();
         }}
       >
         <input type="text" placeholder="Your Name" style={styles.input} required />
